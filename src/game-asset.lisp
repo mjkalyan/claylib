@@ -225,6 +225,11 @@
              (num asset) i))))
   asset)
 
+(defun make-animation-asset (path &key (load-now nil))
+  (make-instance 'animation-asset
+                 :path path
+                 :load-now load-now))
+
 (defmethod free ((asset animation-asset))
   (when (and (asset asset)
              (autowrap:valid-p (c-asset asset)))

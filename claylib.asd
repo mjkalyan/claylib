@@ -131,5 +131,6 @@
                    (:file "scroll-panel")))
                  (:module "models"
                   :components
-                  ((:file "02-billboard")
-                  ((:file "11-loading-gltf")))))))
+                  ((:file "01-animation")
+                   (:file "02-billboard")
+                   (:file "11-loading-gltf")))))))
