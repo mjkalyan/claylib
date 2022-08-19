@@ -46,22 +46,22 @@
                                        claylib/ll:+texture-filter-point+)
         (do-game-loop (:livesupport t
                        :vars ((text-size (make-vector2 0 0))
-                              (current-font-filter 0)))
+                              (current-font-filter 'text-point)))
           (incf (size dynamic-font) (* (get-mouse-wheel-move) 4))
 
           (cond
             ((is-key-pressed-p +key-one+)
              (progn (claylib/ll:set-texture-filter (claylib::c-struct (texture (font dynamic-font)))
                                                    claylib/ll:+texture-filter-point+)
-                    (setf current-font-filter 0)))
+                    (setf current-font-filter 'text-point)))
             ((is-key-pressed-p +key-two+)
              (progn (claylib/ll:set-texture-filter (claylib::c-struct (texture (font dynamic-font)))
                                                    claylib/ll:+texture-filter-bilinear+)
-                    (setf current-font-filter 1)))
+                    (setf current-font-filter 'text-bilinear)))
             ((is-key-pressed-p +key-three+)
              (progn (claylib/ll:set-texture-filter (claylib::c-struct (texture (font dynamic-font)))
                                                    claylib/ll:+texture-filter-trilinear+)
-                    (setf current-font-filter 2))))
+                    (setf current-font-filter 'text-trilinear))))
 
           (measure-text-ex dynamic-font :vector text-size)
 
@@ -73,7 +73,4 @@
 
           (with-drawing ()
             (draw-scene-except *scene* 'text-point 'text-bilinear 'text-trilinear)
-            (draw-scene *scene* (case current-font-filter
-                                  (0 'text-point)
-                                  (1 'text-bilinear)
-                                  (2 'text-trilinear)))))))))
+            (draw-scene *scene* current-font-filter)))))))
